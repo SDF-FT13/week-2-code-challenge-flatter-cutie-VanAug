@@ -92,4 +92,38 @@ const displayCuties = () => {
     .catch(error => console.error("Failed to fetch characters:", error))
 }
 
+// Add new Cutie
+
+const addNewCutie = () => {
+    const cutiesForm = document.getElementById("character-form");
+
+    cutiesForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const cutieName = document.getElementById("new-name").value;
+        const cutieImage = document.getElementById("image-url").value;
+
+        const newCutie = {
+            name: cutieName,
+            image: cutieImage,
+            votes: 0
+        };
+
+        fetch("http://localhost:3000/characters", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(newCutie)
+        })
+        .then(response => response.json())
+        .then()
+    });
+};
+
+
+
 displayCuties()
+
+addNewCutie();
