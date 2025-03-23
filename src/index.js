@@ -22,7 +22,7 @@ const displayCuties = () => {
 
             cutieSpan.addEventListener("click", () => {
 
-                const cutieMainDisplay = document.querySelector(".characterInfo")
+                const cutieMainDisplay = document.querySelector("#detailed-info")
 
                 cutieMainDisplay.innerHTML = `
                     <p id="name">${cutie.name}</p>
@@ -33,8 +33,8 @@ const displayCuties = () => {
                     />
                     <h4>Total Votes: <span id="vote-count">${cutie.votes} Votes</span></h4>
                     <form id="votes-form">
-                    <input type="number" placeholder="Enter Votes" id="votes" name="votes" />
-                    <input type="submit" value="Add Votes" />
+                        <input type="number" placeholder="Enter Votes" id="votes" name="votes" />
+                        <input type="submit" value="Add Votes" />
                     </form>
                     <button id="reset-btn">Reset Votes</button>
                     `;
@@ -118,11 +118,29 @@ const addNewCutie = () => {
             body: JSON.stringify(newCutie)
         })
         .then(response => response.json())
-        .then()
+
+        // Display the submitted image
+
+        .then((newCutie) => {
+            const cutieMainDisplay = document.querySelector("#detailed-info")
+
+            cutieMainDisplay.innerHTML = `
+                <p id="name">${newCutie.name}</p>
+                <img
+                    id="image"
+                    src=${newCutie.image}
+                    alt=${newCutie.name}
+                />
+                <h4>Total Votes: <span id="vote-count">${newCutie.votes} Votes</span></h4>
+                <form id="votes-form">
+                    <input type="number" placeholder="Enter Votes" id="votes" name="votes" />
+                    <input type="submit" value="Add Votes" />
+                </form>
+                <button id="reset-btn">Reset Votes</button>
+            `;
+        })
     });
 };
-
-
 
 displayCuties()
 
